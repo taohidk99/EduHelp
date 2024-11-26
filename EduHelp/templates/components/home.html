@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+ 
+    <!-- Hero Section -->
+    <div class="container-fluid text-center p-5 bg-light" style="background-color: #f8f9fa;">
+      <h1 style="font-size: 2.5rem; font-weight: bold;">Welcome to Online Courses</h1>
+      <p style="font-size: 1.25rem; margin-top: 15px;">Learn new skills online from the best instructors worldwide.</p>
+      <a href="{% url 'course' %}" class="btn btn-primary mt-3" style="padding: 10px 20px; font-size: 1rem;">Explore Courses</a>
+  </div>
+
+  <!-- Course Showcase -->
+  <div class="container mt-5">
+      <h2 class="text-center mb-4" style="font-size: 2rem; font-weight: bold;">Popular Courses</h2>
+      <div class="row justify-content-center">
+          <!-- Course 1 -->
+          <div class="col-md-3 text-center p-3 border rounded" style="margin: 10px;">
+              <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Course 1">
+              <h5>Introduction to Programming</h5>
+              <p>Learn the basics of coding with Python.</p>
+              <p style="font-weight: bold;">$49.99</p>
+              <a href="#" class="btn btn-success" style="padding: 8px 15px;">Enroll Now</a>
+          </div>
+          <!-- Course 2 -->
+          <div class="col-md-3 text-center p-3 border rounded" style="margin: 10px;">
+              <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Course 2">
+              <h5>Web Development</h5>
+              <p>Master HTML, CSS, and JavaScript.</p>
+              <p style="font-weight: bold;">$79.99</p>
+              <a href="#" class="btn btn-success" style="padding: 8px 15px;">Enroll Now</a>
+          </div>
+          <!-- Course 3 -->
+          <div class="col-md-3 text-center p-3 border rounded" style="margin: 10px;">
+              <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Course 3">
+              <h5>Data Science</h5>
+              <p>Analyze and visualize data effectively.</p>
+              <p style="font-weight: bold;">$99.99</p>
+              <a href="#" class="btn btn-success" style="padding: 8px 15px;">Enroll Now</a>
+          </div>
+      </div>
+  </div>
+
+  <!-- About Us Section with Carousel -->
+<section class="container my-5">
+  <h2 class="text-center mb-4" style="font-size: 2rem; font-weight: bold;">About Us</h2>
+  <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1500">
+      <!-- Carousel Indicators -->
+      <div class="carousel-indicators">
+          <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+          <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="2"></button>
+      </div>
+
+      <!-- Carousel Inner -->
+      <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div class="carousel-item active text-center">
+              <img src="https://via.placeholder.com/300" class="rounded-circle mb-3" alt="Team Image 1" style="width: 150px; height: 150px;">
+              <h5>Our Mission</h5>
+              <p>We aim to make education accessible to everyone through high-quality online courses and expert instructors.</p>
+          </div>
+          <!-- Slide 2 -->
+          <div class="carousel-item text-center">
+              <img src="https://via.placeholder.com/300" class="rounded-circle mb-3" alt="Team Image 2" style="width: 150px; height: 150px;">
+              <h5>Our Vision</h5>
+              <p>Empowering learners worldwide by bridging the gap between knowledge and application.</p>
+          </div>
+          <!-- Slide 3 -->
+          <div class="carousel-item text-center">
+              <img src="https://via.placeholder.com/300" class="rounded-circle mb-3" alt="Team Image 3" style="width: 150px; height: 150px;">
+              <h5>Meet the Team</h5>
+              <p>Our dedicated team of professionals ensures an exceptional learning experience for every student.</p>
+          </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+      </button>
+  </div>
+</section>
+
+
+{% endblock %}
