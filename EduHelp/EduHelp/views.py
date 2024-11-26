@@ -10,6 +10,12 @@ def base(request):
 def home(request):
     return render(request, 'components/home.html')
 
+def course(request):
+    courses = Course.objects.all()
+    return render(request,'components/course.html',{
+        'courses':courses,
+    })
+
 def register(request):
     if request.method == 'POST':
         uname = request.POST.get('username')
