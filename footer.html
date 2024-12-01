@@ -1,0 +1,119 @@
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic import RedirectView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(pattern_name='product_list', permanent=False)),  # Redirect root URL to product_list
+    path('products/', include('shop.urls')),  # Include the app's URLs
+]
+
+this is shoeShop/urls.py
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Product
+from .forms import ProductForm
+
+# Product List View
+class ProductListView(ListView):
+    model = Product
+    template_name = 'shop/product_list.html'
+    context_object_name = 'products'
+
+# Product Create View
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'shop/product_form.html'
+    success_url = reverse_lazy('product_list')
+
+# Product Update View
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'shop/product_form.html'
+    success_url = reverse_lazy('product_list')
+
+# Product Delete View
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'shop/product_confirm_delete.html'
+    success_url = reverse_lazy('product_list')
+
+this is views.py
+
+from django.urls import path
+from .views import (
+    ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
+)
+
+urlpatterns = [
+    path('products/', ProductListView.as_view(), name='product_list'),
+    path('products/add/', ProductCreateView.as_view(), name='product_add'),
+    path('products/edit/<int:pk>/', ProductUpdateView.as_view(), name='product_edit'),
+    path('products/delete/<int:pk>/', ProductDeleteView.as_view(), name='product_delete'),
+]
+this is shop/urls.py
+
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<h2>{{ view.object.pk|yesno:"Edit Product,Add New Product" }}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group">
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+    </div>
+    <div class="form-group">
+        <label for="id_description">Description:</label>
+        {{ form.description }}
+    </div>
+    <div class="form-group">
+        <label for="id_price">Price:</label>
+        {{ form.price }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %} this is product_form.html 
+
+the problem is when I save product after give product information it cant save also redirect same page and don't save in product_list.html
+
+here is my product_list.html :
+
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<h2>Products</h2>
+<a href="{% url 'product_add' %}" class="btn btn-primary mb-3">Add New Product</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>${{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+                <a href="{% url 'product_edit' product.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'product_delete' product.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
