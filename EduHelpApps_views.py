@@ -28,18 +28,18 @@ def course_detail(request, course_id):
 
 # Add to cart view
 def add_to_cart(request, course_id):
-    cart = request.session.get('cart', [])  # Retrieve the cart from the session
+    cart = request.session.get('cart', [])
     if course_id not in cart:
-        cart.append(course_id)  # Add the course ID to the cart
-    request.session['cart'] = cart  # Save the updated cart back to the session
-    return redirect('cart')  # Redirect to the cart page
+        cart.append(course_id)
+    request.session['cart'] = cart
+    return redirect('cart')
 
 
 # Cart view
 def cart(request):
-    cart = request.session.get('cart', [])  # Retrieve the cart from the session
-    courses = Course.objects.filter(id__in=cart)  # Fetch courses based on the IDs in the cart
-    return render(request, 'cart.html', {'courses': courses})  # Pass courses to the cart template
+    cart = request.session.get('cart', [])
+    courses = Course.objects.filter(id__in=cart)
+    return render(request, 'cart.html', {'courses': courses})
 
 
 def register(request):
@@ -47,7 +47,7 @@ def register(request):
         uname = request.POST.get('username')
         email = request.POST.get('email')
         pw1 = request.POST.get('password1')
-        pw2 = request.POST.get('password2')  # Corrected to match 'password2' from the form
+        pw2 = request.POST.get('password2')
 
         # Basic validations
         if not uname or not email or not pw1 or not pw2:
@@ -73,7 +73,7 @@ def register(request):
             my_user = User.objects.create_user(username=uname, email=email, password=pw1)
             my_user.save()
             messages.success(request, "Account created successfully. You can now log in.")
-            return redirect('login')  # Replace 'login' with the name of your login URL
+            return redirect('login')
         except Exception as e:
             messages.error(request, "An error occurred while creating the account.")
             return render(request, 'components/register.html')
