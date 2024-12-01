@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from . import settings, views
 
+
 urlpatterns = [
      path('', views.index, name='index'),  # Landing page
     path('admin/', admin.site.urls),
@@ -16,8 +17,8 @@ urlpatterns = [
     path('products/', include('products.urls')),
 
     path('course/<int:course_id>/', views.course_detail, name='course_detail'),
-    path('add-to-cart/<int:course_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.cart, name='cart'),
+
      path('add-to-cart/<int:course_id>/', views.add_to_cart, name='add_to_cart'),
 ]
 

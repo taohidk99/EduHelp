@@ -50,19 +50,26 @@ def course_detail(request, course_id):
         'course': course,
     })
 
-# Add to cart view
 def add_to_cart(request, course_id):
-    cart = request.session.get('cart', [])  # Retrieve the cart from the session
+    cart = request.session.get('cart', [])
     if course_id not in cart:
-        cart.append(course_id)  # Add the course to the cart
-    request.session['cart'] = cart  # Save the cart back to the session
-    return redirect('cart')  # Redirect to the cart page
+        cart.append(course_id)
+        request.session['cart'] = cart
+    return redirect('view_cart')
+
 
 # Cart view
 def cart(request):
     cart = request.session.get('cart', [])
     courses = Course.objects.filter(id__in=cart)  # Retrieve courses in the cart
     return render(request, 'cart.html', {'courses': courses})
+def remove_from_cart(request, course_id):
+    cart = request.session.get('cart', [])
+    if course_id in cart:
+        cart.remove(course_id)
+        request.session['cart'] = cart
+    return redirect('cart')
+
 
 
 
